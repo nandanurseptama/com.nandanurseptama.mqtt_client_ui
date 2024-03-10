@@ -10,8 +10,6 @@ Demo application how handling Connection & Pubsub in MQTT.
 - [RabbitMQ](https://www.rabbitmq.com)
 
 
-
-
 ## Run Locally
 
 #### Getting started

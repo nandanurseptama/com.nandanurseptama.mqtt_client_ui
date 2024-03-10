@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mqtt_client/mqtt_client.dart';
@@ -59,6 +58,7 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
   MqttServerClient? client;
   StreamSubscription<List<MqttReceivedMessage<MqttMessage>>>? _subscription;
 
+  /// Setup configuration for MQTT
   void setupConfig(PubsubClientConfig config) {
     return state.maybeMap<void>(
       orElse: () {
@@ -91,6 +91,9 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     );
   }
 
+  /// Connect to MQTT Server
+  ///
+  /// with setuped connection config
   Future<void> connect(BuildContext context) async {
     final config = state.maybeMap<PubsubClientConfig?>(
       orElse: () => null,
@@ -110,6 +113,10 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
         return value.config;
       },
     );
+
+    // when configuration null
+    //
+    // Show error message to notify user
     if (config == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
@@ -129,10 +136,6 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     client!.onDisconnected = _onDisconnected;
     client!.keepAlivePeriod = 20;
 
-    // final connMess = MqttConnectMessage()
-    //     .authenticateAs(config.username, config.password);
-    // client!.connectionMessage = connMess;
-
     emit(
       PubsubClientConnectionState.connecting(
         config,
@@ -150,6 +153,15 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
       );
       return;
     } catch (error) {
+      debugPrint(error.toString());
+      if (error.toString().toLowerCase().contains('badusernameorpassword')) {
+        _onException(
+          config: config,
+          error:
+              'Failed to connect to MQTT Server. Reason : username or password wrong',
+        );
+        return;
+      }
       _onException(
         config: config,
         error: 'Failed to connect to MQTT Server. Reason : ${error.toString()}',
@@ -158,6 +170,7 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     }
   }
 
+  /// internal exception handler
   void _onException({
     required PubsubClientConfig config,
     required String error,
@@ -173,6 +186,7 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     return;
   }
 
+  /// internal on disconnected handler
   void _onDisconnected() {
     debugPrint('_onDisconnected');
     emit(
@@ -187,6 +201,9 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     return;
   }
 
+  /// internal on connected handler
+  ///
+  /// subscribe message if connected to MQTT
   void _onConnected() {
     _subscription = client!.updates!.listen(
       (c) {},
@@ -201,16 +218,6 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
         data.topic,
         message,
       );
-      //  if (c.isNotEmpty) {
-      //     final p = c.first.payload as MqttPublishMessage;
-      //     final pt =
-      //         MqttPublishPayload.bytesToStringAsString(p.payload.message);
-      //     p.header;
-
-      //     print(
-      //         'EXAMPLE::Change notification:: topic is <${c[0].topic}>, payload is <-- $pt -->');
-      //     print('');
-      //   }
     });
     emit(
       PubsubClientConnectionState.connected(
@@ -220,11 +227,15 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     return;
   }
 
+  /// Disconnect handler when user want to disconnect
+  /// from mqtt
   void disconnect() {
     if (client == null) return;
     client!.disconnect();
   }
 
+  /// Subscribe topic handler when user want to subscribe [topic]
+  /// from mqtt
   void subscribeToTopic({
     required String topic,
     required BuildContext context,
@@ -247,6 +258,10 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     );
   }
 
+  /// Internal subscribe handler
+  ///
+  /// When success subscribe topic to mqtt
+  /// add to subscription state
   void _subscribeToTopic({
     required String topic,
     required BuildContext context,
@@ -279,6 +294,7 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     }
   }
 
+  /// internal handling to show message
   void _showSnackbarMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
