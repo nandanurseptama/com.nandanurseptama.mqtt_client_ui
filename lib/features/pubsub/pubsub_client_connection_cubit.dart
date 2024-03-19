@@ -61,9 +61,9 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
   SubscriptionCubit get subscriptionCubit => _subscriptionCubit;
 
   MqttServerClient? client;
-  StreamSubscription<List<MqttReceivedMessage<MqttMessage>>>? _subscription;
 
-  BuildContext? context;
+  // subscription for received message
+  StreamSubscription<List<MqttReceivedMessage<MqttMessage>>>? _subscription;
 
   /// Setup configuration for MQTT
   void setupConfig(PubsubClientConfig config) {
@@ -233,9 +233,9 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
   ///
   /// This function will be called when client disconnected from server
   /// because no connection or any error connection occured from client
-  /// 
+  ///
   /// or server disconnect from client
-  /// 
+  ///
   /// On Auto reconnect will not be invoked
   /// When client call disconnect manually
   void _onAutoReconnect() {
@@ -244,7 +244,11 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
       orElse: () {
         return;
       },
+      // when reconnecting happen, subscription to message queue must be cancel
+      // to make sure there are no multiple subscription
       reconnecting: (value) {
+        _subscription?.cancel();
+        _subscription = null;
         return;
       },
       connected: (value) {
