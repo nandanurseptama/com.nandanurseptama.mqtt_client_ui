@@ -25,6 +25,9 @@ class ConnectionStatus extends StatelessWidget {
           'Connecting'
         );
       },
+      reconnecting: (value) {
+        return (Colors.orange, Colors.orangeAccent.withOpacity(0.2), 'Reconnecting',);
+      },
     );
     final (fontColor, backgroundColor, textStatus) = meta;
 

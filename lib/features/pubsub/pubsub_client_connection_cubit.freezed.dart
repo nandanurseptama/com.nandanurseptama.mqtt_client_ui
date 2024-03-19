@@ -22,6 +22,7 @@ mixin _$PubsubClientConnectionState {
     required TResult Function(PubsubClientConfig config) prepared,
     required TResult Function(PubsubClientConfig config) connected,
     required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
     required TResult Function(PubsubClientConfig? config) disconnected,
     required TResult Function(PubsubClientConfig? config, String error) error,
   }) =>
@@ -31,6 +32,7 @@ mixin _$PubsubClientConnectionState {
     TResult? Function(PubsubClientConfig config)? prepared,
     TResult? Function(PubsubClientConfig config)? connected,
     TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
     TResult? Function(PubsubClientConfig? config)? disconnected,
     TResult? Function(PubsubClientConfig? config, String error)? error,
   }) =>
@@ -40,6 +42,7 @@ mixin _$PubsubClientConnectionState {
     TResult Function(PubsubClientConfig config)? prepared,
     TResult Function(PubsubClientConfig config)? connected,
     TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
     TResult Function(PubsubClientConfig? config)? disconnected,
     TResult Function(PubsubClientConfig? config, String error)? error,
     required TResult orElse(),
@@ -50,6 +53,7 @@ mixin _$PubsubClientConnectionState {
     required TResult Function(_Prepared value) prepared,
     required TResult Function(_Connected value) connected,
     required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
     required TResult Function(_Disconnected value) disconnected,
     required TResult Function(_Error value) error,
   }) =>
@@ -59,6 +63,7 @@ mixin _$PubsubClientConnectionState {
     TResult? Function(_Prepared value)? prepared,
     TResult? Function(_Connected value)? connected,
     TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
     TResult? Function(_Disconnected value)? disconnected,
     TResult? Function(_Error value)? error,
   }) =>
@@ -68,6 +73,7 @@ mixin _$PubsubClientConnectionState {
     TResult Function(_Prepared value)? prepared,
     TResult Function(_Connected value)? connected,
     TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
     TResult Function(_Disconnected value)? disconnected,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -184,6 +190,7 @@ class _$PreparedImpl implements _Prepared {
     required TResult Function(PubsubClientConfig config) prepared,
     required TResult Function(PubsubClientConfig config) connected,
     required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
     required TResult Function(PubsubClientConfig? config) disconnected,
     required TResult Function(PubsubClientConfig? config, String error) error,
   }) {
@@ -196,6 +203,7 @@ class _$PreparedImpl implements _Prepared {
     TResult? Function(PubsubClientConfig config)? prepared,
     TResult? Function(PubsubClientConfig config)? connected,
     TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
     TResult? Function(PubsubClientConfig? config)? disconnected,
     TResult? Function(PubsubClientConfig? config, String error)? error,
   }) {
@@ -208,6 +216,7 @@ class _$PreparedImpl implements _Prepared {
     TResult Function(PubsubClientConfig config)? prepared,
     TResult Function(PubsubClientConfig config)? connected,
     TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
     TResult Function(PubsubClientConfig? config)? disconnected,
     TResult Function(PubsubClientConfig? config, String error)? error,
     required TResult orElse(),
@@ -224,6 +233,7 @@ class _$PreparedImpl implements _Prepared {
     required TResult Function(_Prepared value) prepared,
     required TResult Function(_Connected value) connected,
     required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
     required TResult Function(_Disconnected value) disconnected,
     required TResult Function(_Error value) error,
   }) {
@@ -236,6 +246,7 @@ class _$PreparedImpl implements _Prepared {
     TResult? Function(_Prepared value)? prepared,
     TResult? Function(_Connected value)? connected,
     TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
     TResult? Function(_Disconnected value)? disconnected,
     TResult? Function(_Error value)? error,
   }) {
@@ -248,6 +259,7 @@ class _$PreparedImpl implements _Prepared {
     TResult Function(_Prepared value)? prepared,
     TResult Function(_Connected value)? connected,
     TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
     TResult Function(_Disconnected value)? disconnected,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -339,6 +351,7 @@ class _$ConnectedImpl implements _Connected {
     required TResult Function(PubsubClientConfig config) prepared,
     required TResult Function(PubsubClientConfig config) connected,
     required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
     required TResult Function(PubsubClientConfig? config) disconnected,
     required TResult Function(PubsubClientConfig? config, String error) error,
   }) {
@@ -351,6 +364,7 @@ class _$ConnectedImpl implements _Connected {
     TResult? Function(PubsubClientConfig config)? prepared,
     TResult? Function(PubsubClientConfig config)? connected,
     TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
     TResult? Function(PubsubClientConfig? config)? disconnected,
     TResult? Function(PubsubClientConfig? config, String error)? error,
   }) {
@@ -363,6 +377,7 @@ class _$ConnectedImpl implements _Connected {
     TResult Function(PubsubClientConfig config)? prepared,
     TResult Function(PubsubClientConfig config)? connected,
     TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
     TResult Function(PubsubClientConfig? config)? disconnected,
     TResult Function(PubsubClientConfig? config, String error)? error,
     required TResult orElse(),
@@ -379,6 +394,7 @@ class _$ConnectedImpl implements _Connected {
     required TResult Function(_Prepared value) prepared,
     required TResult Function(_Connected value) connected,
     required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
     required TResult Function(_Disconnected value) disconnected,
     required TResult Function(_Error value) error,
   }) {
@@ -391,6 +407,7 @@ class _$ConnectedImpl implements _Connected {
     TResult? Function(_Prepared value)? prepared,
     TResult? Function(_Connected value)? connected,
     TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
     TResult? Function(_Disconnected value)? disconnected,
     TResult? Function(_Error value)? error,
   }) {
@@ -403,6 +420,7 @@ class _$ConnectedImpl implements _Connected {
     TResult Function(_Prepared value)? prepared,
     TResult Function(_Connected value)? connected,
     TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
     TResult Function(_Disconnected value)? disconnected,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -494,6 +512,7 @@ class _$ConnectingImpl implements _Connecting {
     required TResult Function(PubsubClientConfig config) prepared,
     required TResult Function(PubsubClientConfig config) connected,
     required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
     required TResult Function(PubsubClientConfig? config) disconnected,
     required TResult Function(PubsubClientConfig? config, String error) error,
   }) {
@@ -506,6 +525,7 @@ class _$ConnectingImpl implements _Connecting {
     TResult? Function(PubsubClientConfig config)? prepared,
     TResult? Function(PubsubClientConfig config)? connected,
     TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
     TResult? Function(PubsubClientConfig? config)? disconnected,
     TResult? Function(PubsubClientConfig? config, String error)? error,
   }) {
@@ -518,6 +538,7 @@ class _$ConnectingImpl implements _Connecting {
     TResult Function(PubsubClientConfig config)? prepared,
     TResult Function(PubsubClientConfig config)? connected,
     TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
     TResult Function(PubsubClientConfig? config)? disconnected,
     TResult Function(PubsubClientConfig? config, String error)? error,
     required TResult orElse(),
@@ -534,6 +555,7 @@ class _$ConnectingImpl implements _Connecting {
     required TResult Function(_Prepared value) prepared,
     required TResult Function(_Connected value) connected,
     required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
     required TResult Function(_Disconnected value) disconnected,
     required TResult Function(_Error value) error,
   }) {
@@ -546,6 +568,7 @@ class _$ConnectingImpl implements _Connecting {
     TResult? Function(_Prepared value)? prepared,
     TResult? Function(_Connected value)? connected,
     TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
     TResult? Function(_Disconnected value)? disconnected,
     TResult? Function(_Error value)? error,
   }) {
@@ -558,6 +581,7 @@ class _$ConnectingImpl implements _Connecting {
     TResult Function(_Prepared value)? prepared,
     TResult Function(_Connected value)? connected,
     TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
     TResult Function(_Disconnected value)? disconnected,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -577,6 +601,168 @@ abstract class _Connecting implements PubsubClientConnectionState {
   @override
   @JsonKey(ignore: true)
   _$$ConnectingImplCopyWith<_$ConnectingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReconnectingImplCopyWith<$Res>
+    implements $PubsubClientConnectionStateCopyWith<$Res> {
+  factory _$$ReconnectingImplCopyWith(
+          _$ReconnectingImpl value, $Res Function(_$ReconnectingImpl) then) =
+      __$$ReconnectingImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({PubsubClientConfig config});
+}
+
+/// @nodoc
+class __$$ReconnectingImplCopyWithImpl<$Res>
+    extends _$PubsubClientConnectionStateCopyWithImpl<$Res, _$ReconnectingImpl>
+    implements _$$ReconnectingImplCopyWith<$Res> {
+  __$$ReconnectingImplCopyWithImpl(
+      _$ReconnectingImpl _value, $Res Function(_$ReconnectingImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? config = null,
+  }) {
+    return _then(_$ReconnectingImpl(
+      null == config
+          ? _value.config
+          : config // ignore: cast_nullable_to_non_nullable
+              as PubsubClientConfig,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReconnectingImpl implements _Reconnecting {
+  const _$ReconnectingImpl(this.config);
+
+  @override
+  final PubsubClientConfig config;
+
+  @override
+  String toString() {
+    return 'PubsubClientConnectionState.reconnecting(config: $config)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReconnectingImpl &&
+            (identical(other.config, config) || other.config == config));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, config);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReconnectingImplCopyWith<_$ReconnectingImpl> get copyWith =>
+      __$$ReconnectingImplCopyWithImpl<_$ReconnectingImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PubsubClientConfig config) prepared,
+    required TResult Function(PubsubClientConfig config) connected,
+    required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
+    required TResult Function(PubsubClientConfig? config) disconnected,
+    required TResult Function(PubsubClientConfig? config, String error) error,
+  }) {
+    return reconnecting(config);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PubsubClientConfig config)? prepared,
+    TResult? Function(PubsubClientConfig config)? connected,
+    TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
+    TResult? Function(PubsubClientConfig? config)? disconnected,
+    TResult? Function(PubsubClientConfig? config, String error)? error,
+  }) {
+    return reconnecting?.call(config);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PubsubClientConfig config)? prepared,
+    TResult Function(PubsubClientConfig config)? connected,
+    TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
+    TResult Function(PubsubClientConfig? config)? disconnected,
+    TResult Function(PubsubClientConfig? config, String error)? error,
+    required TResult orElse(),
+  }) {
+    if (reconnecting != null) {
+      return reconnecting(config);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Prepared value) prepared,
+    required TResult Function(_Connected value) connected,
+    required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
+    required TResult Function(_Disconnected value) disconnected,
+    required TResult Function(_Error value) error,
+  }) {
+    return reconnecting(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Prepared value)? prepared,
+    TResult? Function(_Connected value)? connected,
+    TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
+    TResult? Function(_Disconnected value)? disconnected,
+    TResult? Function(_Error value)? error,
+  }) {
+    return reconnecting?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Prepared value)? prepared,
+    TResult Function(_Connected value)? connected,
+    TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
+    TResult Function(_Disconnected value)? disconnected,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (reconnecting != null) {
+      return reconnecting(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Reconnecting implements PubsubClientConnectionState {
+  const factory _Reconnecting(final PubsubClientConfig config) =
+      _$ReconnectingImpl;
+
+  @override
+  PubsubClientConfig get config;
+  @override
+  @JsonKey(ignore: true)
+  _$$ReconnectingImplCopyWith<_$ReconnectingImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -650,6 +836,7 @@ class _$DisconnectedImpl implements _Disconnected {
     required TResult Function(PubsubClientConfig config) prepared,
     required TResult Function(PubsubClientConfig config) connected,
     required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
     required TResult Function(PubsubClientConfig? config) disconnected,
     required TResult Function(PubsubClientConfig? config, String error) error,
   }) {
@@ -662,6 +849,7 @@ class _$DisconnectedImpl implements _Disconnected {
     TResult? Function(PubsubClientConfig config)? prepared,
     TResult? Function(PubsubClientConfig config)? connected,
     TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
     TResult? Function(PubsubClientConfig? config)? disconnected,
     TResult? Function(PubsubClientConfig? config, String error)? error,
   }) {
@@ -674,6 +862,7 @@ class _$DisconnectedImpl implements _Disconnected {
     TResult Function(PubsubClientConfig config)? prepared,
     TResult Function(PubsubClientConfig config)? connected,
     TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
     TResult Function(PubsubClientConfig? config)? disconnected,
     TResult Function(PubsubClientConfig? config, String error)? error,
     required TResult orElse(),
@@ -690,6 +879,7 @@ class _$DisconnectedImpl implements _Disconnected {
     required TResult Function(_Prepared value) prepared,
     required TResult Function(_Connected value) connected,
     required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
     required TResult Function(_Disconnected value) disconnected,
     required TResult Function(_Error value) error,
   }) {
@@ -702,6 +892,7 @@ class _$DisconnectedImpl implements _Disconnected {
     TResult? Function(_Prepared value)? prepared,
     TResult? Function(_Connected value)? connected,
     TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
     TResult? Function(_Disconnected value)? disconnected,
     TResult? Function(_Error value)? error,
   }) {
@@ -714,6 +905,7 @@ class _$DisconnectedImpl implements _Disconnected {
     TResult Function(_Prepared value)? prepared,
     TResult Function(_Connected value)? connected,
     TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
     TResult Function(_Disconnected value)? disconnected,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -815,6 +1007,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(PubsubClientConfig config) prepared,
     required TResult Function(PubsubClientConfig config) connected,
     required TResult Function(PubsubClientConfig config) connecting,
+    required TResult Function(PubsubClientConfig config) reconnecting,
     required TResult Function(PubsubClientConfig? config) disconnected,
     required TResult Function(PubsubClientConfig? config, String error) error,
   }) {
@@ -827,6 +1020,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(PubsubClientConfig config)? prepared,
     TResult? Function(PubsubClientConfig config)? connected,
     TResult? Function(PubsubClientConfig config)? connecting,
+    TResult? Function(PubsubClientConfig config)? reconnecting,
     TResult? Function(PubsubClientConfig? config)? disconnected,
     TResult? Function(PubsubClientConfig? config, String error)? error,
   }) {
@@ -839,6 +1033,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(PubsubClientConfig config)? prepared,
     TResult Function(PubsubClientConfig config)? connected,
     TResult Function(PubsubClientConfig config)? connecting,
+    TResult Function(PubsubClientConfig config)? reconnecting,
     TResult Function(PubsubClientConfig? config)? disconnected,
     TResult Function(PubsubClientConfig? config, String error)? error,
     required TResult orElse(),
@@ -855,6 +1050,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Prepared value) prepared,
     required TResult Function(_Connected value) connected,
     required TResult Function(_Connecting value) connecting,
+    required TResult Function(_Reconnecting value) reconnecting,
     required TResult Function(_Disconnected value) disconnected,
     required TResult Function(_Error value) error,
   }) {
@@ -867,6 +1063,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Prepared value)? prepared,
     TResult? Function(_Connected value)? connected,
     TResult? Function(_Connecting value)? connecting,
+    TResult? Function(_Reconnecting value)? reconnecting,
     TResult? Function(_Disconnected value)? disconnected,
     TResult? Function(_Error value)? error,
   }) {
@@ -879,6 +1076,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Prepared value)? prepared,
     TResult Function(_Connected value)? connected,
     TResult Function(_Connecting value)? connecting,
+    TResult Function(_Reconnecting value)? reconnecting,
     TResult Function(_Disconnected value)? disconnected,
     TResult Function(_Error value)? error,
     required TResult orElse(),

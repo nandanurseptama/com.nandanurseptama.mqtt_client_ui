@@ -28,6 +28,11 @@ class PubsubClientConnectionState with _$PubsubClientConnectionState {
     PubsubClientConfig config,
   ) = _Connecting;
 
+  /// Trying to reconnecting to pubsub service
+  const factory PubsubClientConnectionState.reconnecting(
+    PubsubClientConfig config,
+  ) = _Reconnecting;
+
   /// Disconnected from pubsub service
   const factory PubsubClientConnectionState.disconnected({
     @Default(null) PubsubClientConfig? config,
@@ -57,6 +62,8 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
 
   MqttServerClient? client;
   StreamSubscription<List<MqttReceivedMessage<MqttMessage>>>? _subscription;
+
+  BuildContext? context;
 
   /// Setup configuration for MQTT
   void setupConfig(PubsubClientConfig config) {
@@ -136,11 +143,27 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     client!.onDisconnected = _onDisconnected;
     client!.keepAlivePeriod = 20;
 
+    // auto reconnect function
+    //
+    // when auto reconnect is true
+    //
+    // any disconnected error will be auto reconnect
+    //
+    // until client disconnect from the server
+    client!.autoReconnect = true;
+
+    // On auto reconnect
+    client!.onAutoReconnect = _onAutoReconnect;
+
     emit(
       PubsubClientConnectionState.connecting(
         config,
       ),
     );
+    _connectToMqtt(config);
+  }
+
+  Future<void> _connectToMqtt(PubsubClientConfig config) async {
     try {
       await client!.connect(
         config.username,
@@ -187,6 +210,11 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
   }
 
   /// internal on disconnected handler
+  ///
+  /// This function will be called
+  ///
+  /// either client disconnect from server
+  /// or server going down
   void _onDisconnected() {
     debugPrint('_onDisconnected');
     emit(
@@ -198,6 +226,50 @@ class PubsubClientConnectionCubit extends Cubit<PubsubClientConnectionState> {
     _subscription = null;
     client = null;
     _subscriptionCubit.clear();
+    return;
+  }
+
+  /// Internal on auto reconnect handler
+  ///
+  /// This function will be called when client disconnected from server
+  /// because no connection or any error connection occured from client
+  /// 
+  /// or server disconnect from client
+  /// 
+  /// On Auto reconnect will not be invoked
+  /// When client call disconnect manually
+  void _onAutoReconnect() {
+    debugPrint('_onAutoReconnect');
+    state.maybeMap<void>(
+      orElse: () {
+        return;
+      },
+      reconnecting: (value) {
+        return;
+      },
+      connected: (value) {
+        emit(
+          PubsubClientConnectionState.reconnecting(
+            value.config,
+          ),
+        );
+        return;
+      },
+      error: (value) {
+        client?.disconnect();
+        return;
+      },
+      connecting: (value) {
+        return;
+      },
+      disconnected: (value) {
+        if (value.config == null) {
+          return;
+        }
+        client?.disconnect();
+        return;
+      },
+    );
     return;
   }
 

@@ -157,9 +157,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         bottom: 16,
                       ),
                       child: ConnectButton(
-                        isConnected: pubsubClientState.maybeMap<bool>(
-                          connected: (value) => true,
-                          orElse: () => false,
+                        connectButtonState:
+                            pubsubClientState.maybeMap<ConnectButtonState>(
+                          orElse: () {
+                            return ConnectButtonState.disconnected;
+                          },
+                          reconnecting: (value) {
+                            return ConnectButtonState.reconnecting;
+                          },
+                          connected: (value) {
+                            return ConnectButtonState.connected;
+                          },
+                          connecting: (value) {
+                            return ConnectButtonState.connecting;
+                          },
                         ),
                         onConnectDisconnect:
                             onConnectDisconnect(pubsubClientState),
@@ -212,7 +223,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void connectionStateListener(PubsubClientConnectionState state) {
+  void connectionStateListener(
+    PubsubClientConnectionState state,
+  ) {
     return state.maybeMap<void>(
       orElse: () {
         return;
@@ -231,13 +244,35 @@ class _MyHomePageState extends State<MyHomePage> {
   ) {
     return pubsubClientConnectionState.maybeMap(
       orElse: () => null,
+      // when client try to connecting
+      //
+      // disable button handler
       connecting: (value) => null,
+      // when client try reconnecting to server
+      //
+      // set button connection status handler
+      // to disconnect
+      //
+      // because user we can give user an option
+      // to force to disconnect from server
+      reconnecting: (value) {
+        return disconnect;
+      },
+      // when connection prepared
+      //
+      // set connect handler to connect button
       prepared: (value) {
         return connect;
       },
+      // when client connected to server
+      //
+      // set disconnect handler to connect button
       connected: (value) {
         return disconnect;
       },
+      // when client disconnected from server
+      //
+      // set connect handler to connect button
       disconnected: (value) {
         return connect;
       },
@@ -247,18 +282,26 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // connect handler to cubit
   void connect() {
     context.read<PubsubClientConnectionCubit>().connect(context);
     return;
   }
 
+  // disconnect handler to cubit
   void disconnect() {
     context.read<PubsubClientConnectionCubit>().disconnect();
     return;
   }
 
+  // On tap config handler
+  //
+  // will navigate user to config screen
   Future<void> onTapConfig(PubsubClientConnectionState state) async {
     return state.maybeMap<Future<void>>(
+      // when client already connected, connecting or reconnecting
+      //
+      // make config not be changeable
       orElse: () async {
         showSnackbarMessage(
           'While being connected, connection configuration cannot be changed',
@@ -283,7 +326,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // naviage to config screen
   Future<void> navigateToClientConfigScreen(PubsubClientConfig? config) async {
+    // get config from config screen
     final configResult = await Navigator.push<PubsubClientConfig>(
       context,
       MaterialPageRoute(
@@ -292,10 +337,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+    // if no configuration set
+    // do not set config to state
     if (configResult == null) return;
     context.read<PubsubClientConnectionCubit>().setupConfig(configResult);
   }
 
+  // add new topic to subscribe
   void onAddTopic(String topic) {
     context.read<PubsubClientConnectionCubit>().subscribeToTopic(
           topic: topic,
@@ -304,6 +352,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return;
   }
 
+  // Show snackbar message
   void showSnackbarMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),

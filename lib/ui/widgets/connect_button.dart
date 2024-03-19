@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 
+enum ConnectButtonState {
+  connected("Connected", Colors.greenAccent),
+  disconnected("Disconnected", Colors.redAccent),
+  reconnecting("Force Disconnect", Colors.orangeAccent),
+  connecting("Connecting", Colors.yellowAccent);
+
+  final String label;
+  final Color color;
+  const ConnectButtonState(
+    this.label,
+    this.color,
+  );
+}
+
 /// Button that handle connection
 class ConnectButton extends StatelessWidget {
-  final bool isConnected;
+  final ConnectButtonState connectButtonState;
   final void Function()? onConnectDisconnect;
   const ConnectButton({
     super.key,
+    required this.connectButtonState,
     this.onConnectDisconnect,
-    required this.isConnected,
   });
 
   @override
@@ -17,19 +31,33 @@ class ConnectButton extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FilledButton(
-              onPressed: onConnectDisconnect,
-              style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(
-                  Size(80, 80),
+            Expanded(
+              child: FilledButton(
+                onPressed: onConnectDisconnect,
+                style: ButtonStyle(
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.zero,
+                  ),
+                  alignment: Alignment.center,
+                  backgroundColor: MaterialStatePropertyAll(
+                    connectButtonState.color,
+                  ),
                 ),
-                padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                alignment: Alignment.center,
-                backgroundColor: MaterialStatePropertyAll(
-                  isConnected ? Colors.redAccent : Colors.greenAccent,
-                ),
+                child: switch (connectButtonState) {
+                  ConnectButtonState.connected => const Icon(
+                      Icons.power_off,
+                    ),
+                  ConnectButtonState.disconnected => const Icon(
+                      Icons.power,
+                    ),
+                  ConnectButtonState.connecting => Text(
+                      ConnectButtonState.connecting.label,
+                    ),
+                  _ => Text(
+                      ConnectButtonState.reconnecting.label,
+                    ),
+                },
               ),
-              child: Icon(isConnected ? Icons.power_off : Icons.power),
             )
           ],
         );
